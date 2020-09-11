@@ -1,7 +1,7 @@
 <template>
   <div
     id="calculator-view"
-    class=" m-5"
+    class="flex flex-col justify-center h-screen m-5"
   >
     <h1 class="text-center">
       Calculator App
@@ -78,16 +78,4 @@
   </div>
 </template>
 
-<style>
-/* #all-buttons-container{
-  display:flex;
-flex-direction: row;
- }
-#number-buttons-container{
-  flex-grow:0.8
-}
-#function-buttons-container{
-   flex-grow:0.2
-} */
-
-</style>
+<style></style>
