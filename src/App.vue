@@ -8,6 +8,9 @@
     </router-link> |
     <router-link to="/calculator">
       Calculator
+    </router-link> |
+    <router-link to="/pomodoro">
+      Pomodoro Timer
     </router-link>
   </div>
   <router-view />
