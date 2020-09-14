@@ -4,13 +4,13 @@
     class="text-center"
   >
     <router-link to="/">
-      Home
+      🏠 Home
     </router-link> |
     <router-link to="/calculator">
-      Calculator
+      🧮 Calculator
     </router-link> |
     <router-link to="/pomodoro">
-      Pomodoro Timer
+      🍅 Pomodoro Timer
     </router-link>
   </div>
   <router-view />
