@@ -3,14 +3,34 @@
     <div id="pomo-container" class="bg-red-200 p-3">
       <div id="timer" class="flex justify-evenly">
         <div id="mins-container">
-          <button class="bg-red-500 hover:bg-red-600 p-2">➕</button>
-          <span> 20 </span>
-          <button class="bg-red-500 hover:bg-red-600 p-2">➖</button>
+          <button
+            class="bg-red-500 hover:bg-red-600 p-2"
+            @click="incrementTimer(60000)"
+          >
+            ➕
+          </button>
+          <span class="p-1"> {{ minutes }} </span>
+          <button
+            class="bg-red-500 hover:bg-red-600 p-2"
+            @click="decrementTimer(60000)"
+          >
+            ➖
+          </button>
         </div>
         <div id="secs-container">
-          <button class="bg-red-500 hover:bg-red-600 p-2">➕</button>
-          <span> 00 </span>
-          <button class="bg-red-500 hover:bg-red-600 p-2">➖</button>
+          <button
+            class="bg-red-500 hover:bg-red-600 p-2"
+            @click="incrementTimer(10000)"
+          >
+            ➕
+          </button>
+          <span class="p-1"> {{ seconds }} </span>
+          <button
+            class="bg-red-500 hover:bg-red-600 p-2"
+            @click="decrementTimer(10000)"
+          >
+            ➖
+          </button>
         </div>
       </div>
       <div id="timer-controls" class="flex justify-evenly p-5">
@@ -26,18 +46,19 @@
         >
           Stop
         </button>
-        <button class="bg-purple-500 hover:bg-purple-600 p-2">Reset</button>
-      </div>
-      <div id="dev-area" class="border-dotted border-black">
-        <h1>Dev Area</h1>
-        {{ timerInMilliSecs }}
+        <button
+          class="bg-purple-500 hover:bg-purple-600 p-2"
+          @click="resetTimer()"
+        >
+          Reset
+        </button>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted } from "vue";
+<script lang="ts">
+import { defineComponent, ref, onMounted, computed } from "vue";
 export default defineComponent({
   name: "Pomodoro",
   setup() {
@@ -59,7 +80,7 @@ export default defineComponent({
     });
 
     const timerState = ref("STOPPED");
-    const timerInMilliSecs = ref(5000);
+    const timerInMilliSecs = ref(1200000);
 
     function stopTimer() {
       timerState.value = "STOPPED";
@@ -69,7 +90,36 @@ export default defineComponent({
       timerState.value = "STARTED";
     }
 
-    return { timerInMilliSecs, startTimer, stopTimer };
+    function resetTimer() {
+      timerInMilliSecs.value = 1200000;
+    }
+
+    function incrementTimer(milliSecs: number) {
+      timerInMilliSecs.value += milliSecs;
+    }
+
+    function decrementTimer(milliSecs: number) {
+      timerInMilliSecs.value -= milliSecs;
+    }
+
+    const minutes = computed(() => {
+      return Math.floor(timerInMilliSecs.value / 60000);
+    });
+
+    const seconds = computed(() => {
+      return ((timerInMilliSecs.value % 60000) / 1000).toFixed(0);
+    });
+
+    return {
+      timerInMilliSecs,
+      startTimer,
+      stopTimer,
+      resetTimer,
+      incrementTimer,
+      decrementTimer,
+      minutes,
+      seconds,
+    };
   },
 });
 </script>
