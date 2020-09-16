@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <p>
+    <h1 class="text-center p-5">
       Free Code Camp Challenges build with Vue 3 Composition API and Tailwind
-    </p>
+    </h1>
   </div>
 </template>
 
