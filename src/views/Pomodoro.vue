@@ -59,46 +59,36 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed } from "vue";
+
+enum TimerState {
+  STARTED = "STARTED",
+  STOPPED = "STOPPED",
+}
+
 export default defineComponent({
   name: "Pomodoro",
   setup() {
-    onMounted(() => {
-      // Set Interval is running all the time. Check the state of timer to either decrement timer by second or just skip perpetually until state is changed
-      setInterval(() => {
-        if (timerState.value === "STOPPED") {
-          console.log("timer stopped");
-          return;
-        }
-        if (timerInMilliSecs.value === 0) {
-          timerState.value = "STOPPED";
-          alert("Times up!");
-          return;
-        }
-        console.log("timer started");
-        timerInMilliSecs.value -= 1000;
-      }, 1000);
-    });
-
-    const timerState = ref("STOPPED");
+    const timerState = ref<TimerState>(TimerState.STOPPED);
     const timerInMilliSecs = ref(1200000);
 
-    function stopTimer() {
-      timerState.value = "STOPPED";
+    function stopTimer(): void {
+      console.log(TimerState.STOPPED);
+      timerState.value = TimerState.STOPPED;
     }
 
-    function startTimer() {
-      timerState.value = "STARTED";
+    function startTimer(): void {
+      timerState.value = TimerState.STARTED;
     }
 
-    function resetTimer() {
+    function resetTimer(): void {
       timerInMilliSecs.value = 1200000;
     }
 
-    function incrementTimer(milliSecs: number) {
+    function incrementTimer(milliSecs: number): void {
       timerInMilliSecs.value += milliSecs;
     }
 
-    function decrementTimer(milliSecs: number) {
+    function decrementTimer(milliSecs: number): void {
       timerInMilliSecs.value -= milliSecs;
     }
 
@@ -108,6 +98,23 @@ export default defineComponent({
 
     const seconds = computed(() => {
       return ((timerInMilliSecs.value % 60000) / 1000).toFixed(0);
+    });
+
+    onMounted(() => {
+      // Set Interval is running all the time. Check the state of timer to either decrement timer by second or just skip perpetually until state is changed
+      setInterval(() => {
+        if (timerState.value === "STOPPED") {
+          console.log("timer stopped");
+          return;
+        }
+        if (timerInMilliSecs.value === 0) {
+          timerState.value = TimerState.STOPPED;
+          alert("Times up!");
+          return;
+        }
+        console.log("timer started");
+        timerInMilliSecs.value -= 1000;
+      }, 1000);
     });
 
     return {
