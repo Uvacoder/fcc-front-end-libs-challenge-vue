@@ -1,9 +1,21 @@
 <template>
-  <div>not implemented yet</div>
+  <div class="text-center">Drum Machine</div>
+
+  <button
+    class="bg-red-600 p-5 m-5 h-16 w-3 flex justify-center"
+    @click="handleKey"
+  >
+    <audio
+      ref="chord"
+      preload
+      src="https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3"
+    ></audio>
+    chord
+  </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 const keyPressLookup = {
   Q: {
     name: "Chord-1",
@@ -46,7 +58,14 @@ const keyPressLookup = {
 export default defineComponent({
   setup() {
     console.log(keyPressLookup);
-    return {};
+    const chord = ref<any>(null);
+
+    function handleKey(): void {
+      console.log(chord.value);
+      chord.value.play();
+    }
+
+    return { handleKey, chord };
   },
 });
 </script>
