@@ -152,28 +152,7 @@ export default defineComponent({
     const valB = ref<undefined | string>(undefined);
     const calcFunction = ref<undefined | string>(undefined);
 
-    function handleKeyPress(key: calcKey) {
-      switch (key.type) {
-        case "NUMBER":
-          console.log("Number", key.value);
-          _handleNumber(key);
-          break;
-        case "FUNCTION":
-          console.log("Function", key.value);
-          _handleFunction(key);
-          break;
-        case "CALCULATE":
-          console.log("Calculate", key.value);
-          _handleCalculate();
-          break;
-
-        default:
-          console.log("key.type not recognised");
-          break;
-      }
-    }
-
-    function _handleNumber(key: calcKey) {
+    function _handleNumber(key: calcKey): void {
       if (calcFunction.value === undefined) {
         if (valA.value === undefined) {
           valA.value = key.value as string;
@@ -189,7 +168,7 @@ export default defineComponent({
       }
     }
 
-    function _handleFunction(key: calcKey) {
+    function _handleFunction(key: calcKey): void {
       if (key.value === "CLEAR") {
         valA.value = "0";
         valB.value = undefined;
@@ -199,8 +178,7 @@ export default defineComponent({
 
       calcFunction.value = key.value;
     }
-
-    function _handleCalculate() {
+    function _handleCalculate(): void {
       if (calcFunction.value === undefined) {
         console.log("can't calculate without a function selected");
         return;
@@ -239,6 +217,28 @@ export default defineComponent({
           break;
       }
     }
+
+    function handleKeyPress(key: calcKey): void {
+      switch (key.type) {
+        case "NUMBER":
+          console.log("Number", key.value);
+          _handleNumber(key);
+          break;
+        case "FUNCTION":
+          console.log("Function", key.value);
+          _handleFunction(key);
+          break;
+        case "CALCULATE":
+          console.log("Calculate", key.value);
+          _handleCalculate();
+          break;
+
+        default:
+          console.log("key.type not recognised");
+          break;
+      }
+    }
+
     return {
       handleKeyPress,
       calcFunction,
