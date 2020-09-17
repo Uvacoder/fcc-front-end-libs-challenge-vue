@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/random-quote-machine",
-    name: "Pomodoro",
+    name: "RandomQuoteMachine",
     component: (): Component => import("../views/RandomQuoteMachine.vue"),
   },
 ];
